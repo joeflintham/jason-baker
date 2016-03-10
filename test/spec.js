@@ -73,6 +73,18 @@ describe('jason-baker', function(){
 
     });
 
+    it('should merge globbed JSON files', function(done){
+
+      var jsonGLOB = path.resolve(__dirname, './**/*.json');
+      var jsonResult = require('./fixtures/jsonResult.json');
+
+      jasonBaker(jsonGLOB, {}, function(err, res){
+        res.should.deep.equal(jsonResult);
+        done();
+      });
+
+    });
+
   });
 
 });
