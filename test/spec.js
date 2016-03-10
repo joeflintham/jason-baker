@@ -33,29 +33,49 @@ describe('jason-baker', function(){
 
     });
 
-    it('should merge complex JSON objects', function(done){
-      var jsonA =
-          {
-            foo: 'bar'
-          },
+  });
 
-          jsonB = {
-            foo: 'boo',
-            bar: {
-              woo: 'hoo'
-            }
-          },
+  describe('JSON baking with complex JSON objects', function(){
 
-          jsonC = {
-            bar: {
-              foo: 'baz'
-            }
-          };
+    var jsonA =
+        {
+          foo: 'bar'
+        },
 
-      var jsonResult = { foo: 'boo', bar: { foo: 'baz', woo: 'hoo' } };
+        jsonB = {
+          foo: 'boo',
+          bar: {
+            woo: 'hoo'
+          }
+        },
+
+        jsonC = {
+          bar: {
+            foo: 'baz'
+          }
+        },
+
+        jsonD = {
+          foo: null,
+          bar: null
+        };
+
+    var jsonResultABC = { foo: 'boo', bar: { foo: 'baz', woo: 'hoo' } };
+    var jsonResultABCD = { foo: null, bar: null };
+
+    it('should merge complex JSON objects @json-object', function(done){
 
       jasonBaker([jsonA, jsonB, jsonC], {}, function(err, res){
-        res.should.deep.equal(jsonResult);
+        res.should.deep.equal(jsonResultABC);
+        done();
+      });
+
+    });
+
+    it('should merge complex JSON objects and null @json-object', function(done){
+
+      jasonBaker([jsonA, jsonB, jsonC, jsonD], {}, function(err, res){
+        res.should.deep.equal(jsonResultABCD);
         done();
       });
 
@@ -65,11 +85,11 @@ describe('jason-baker', function(){
 
   describe('JSON baking with JSON files', function(){
 
-    it('should merge JSON named files', function(done){
+    it('should merge JSON named files @json-file', function(done){
 
-      var jsonA = path.resolve(__dirname, './fixtures/jsonA.json'),
-          jsonB = path.resolve(__dirname, './fixtures/jsonB.json'),
-          jsonC = path.resolve(__dirname, './fixtures/jsonC.json');
+      var jsonA = path.resolve(__dirname, './fixtures/a/jsonA.json'),
+          jsonB = path.resolve(__dirname, './fixtures/a/jsonB.json'),
+          jsonC = path.resolve(__dirname, './fixtures/a/jsonC.json');
 
       var jsonResult = require('./fixtures/jsonResult.json');
 
@@ -80,9 +100,13 @@ describe('jason-baker', function(){
 
     });
 
-    it('should merge globbed JSON files', function(done){
+  });
 
-      var jsonGLOB = path.resolve(__dirname, './**/*.json');
+  describe('JSON baking with globbed JSON files', function(){
+
+    it('should merge globbed JSON files from a single glob pattern @json-file @glob', function(done){
+
+      var jsonGLOB = path.resolve(__dirname, './fixtures/a/**/*.json');
       var jsonResult = require('./fixtures/jsonResult.json');
 
       jasonBaker(jsonGLOB, {}, function(err, res){
@@ -92,6 +116,26 @@ describe('jason-baker', function(){
 
     });
 
+
+    it('should merge globbed JSON files from an array of glob patterns @json-file @glob @glob-array', function(done){
+
+      var jsonGLOB = [
+        path.resolve(__dirname, './fixtures/a/**/*.json'),
+        path.resolve(__dirname, './fixtures/b/**/*.json')
+      ];
+      var jsonResult = require('./fixtures/jsonResult.json');
+
+      jasonBaker(jsonGLOB, {}, function(err, res){
+        var keys = Object.keys(res);
+        keys.forEach(function(k){
+          expect(res[k]).to.equal(null)
+        });
+        done();
+      });
+
+    });
+
   });
+
 
 });
