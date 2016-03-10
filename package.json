@@ -1,0 +1,23 @@
+{
+  "name": "jason-baker",
+  "version": "0.0.1",
+  "description": "A tool for merging json files",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/joeflintham/jason-baker.git"
+  },
+  "author": "Joe Flintham",
+  "license": "GPL-2.0",
+  "bugs": {
+    "url": "https://github.com/joeflintham/jason-baker/issues"
+  },
+  "homepage": "https://github.com/joeflintham/jason-baker#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5"
+  }
+}
