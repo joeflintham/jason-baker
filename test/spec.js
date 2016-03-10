@@ -12,7 +12,7 @@ describe('jason-baker', function(){
 
       expect(function(){
         var jb = new jasonBaker();
-      }).to.throw("Missing arguments");
+      }).to.throw("Your recipe needs more ingredients.");
 
       (typeof new jasonBaker(null, null, function(){})).should.equal('object');
 
