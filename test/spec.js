@@ -7,7 +7,7 @@ describe('jason-baker', function(){
 
   describe('sanity check', function(){
 
-    it('should exist', function(){
+    it('should exist @sanity', function(){
       (typeof jasonBaker).should.equal('function');
 
       expect(function(){
@@ -20,9 +20,9 @@ describe('jason-baker', function(){
 
   });
 
-  describe('JSON baking with JSON objects', function(){
+  describe('JSON baking with simple JSON objects', function(){
 
-    it('should merge simple JSON objects', function(done){
+    it('should merge simple JSON objects @json-object', function(done){
       var jsonA = { foo: 'bar' }, jsonB = { bar: 'foo', foo: 'boo' };
       var jsonResult = { foo: 'boo', bar: 'foo' };
 
