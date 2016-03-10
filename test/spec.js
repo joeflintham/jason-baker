@@ -1,4 +1,5 @@
 var should = require('chai').should();
+var expect = require('chai').expect;
 var jasonBaker = require('../');
 var path = require('path');
 
@@ -8,7 +9,13 @@ describe('jason-baker', function(){
 
     it('should exist', function(){
       (typeof jasonBaker).should.equal('function');
-      (typeof new jasonBaker()).should.equal('object');
+
+      expect(function(){
+        var jb = new jasonBaker();
+      }).to.throw("Missing arguments");
+
+      (typeof new jasonBaker(null, null, function(){})).should.equal('object');
+
     });
 
   });
