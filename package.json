@@ -21,7 +21,6 @@
     "mocha": "^2.4.5"
   },
   "dependencies": {
-    "glob": "^7.0.3",
     "glob-promise": "^1.0.6",
     "q": "^1.4.1"
   }
