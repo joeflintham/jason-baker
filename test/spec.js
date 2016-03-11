@@ -81,6 +81,41 @@ describe('jason-baker', function(){
 
     });
 
+    it('JSON baking handles a locale test case correctly @json-object @locale-demo', function(done){
+
+      var jsonA = {
+        en: {
+          buttons: {
+            start: 'Start',
+            continue: 'Continue'
+          }
+        }
+      };
+      var jsonB = {
+        en: {
+          buttons: {
+            continue: 'Go on',
+            next: 'Next'
+          }
+        }
+      };
+      var jsonResult = {
+        en: {
+          buttons: {
+            start: 'Start',
+            continue: 'Go on',
+            next: 'Next'
+          }
+        }
+      };
+
+      jasonBaker([jsonA, jsonB], {}, function(err, res){
+        res.should.deep.equal(jsonResult);
+        done();
+      });
+
+    });
+
   });
 
   describe('JSON baking with JSON files', function(){
@@ -94,6 +129,20 @@ describe('jason-baker', function(){
       var jsonResult = require('./fixtures/jsonResult.json');
 
       jasonBaker([jsonA, jsonB, jsonC], {}, function(err, res){
+        res.should.deep.equal(jsonResult);
+        done();
+      });
+
+    });
+
+    it('JSON baking handles a locale test case correctly @json-file @locale-demo', function(done){
+
+      var jsonA = path.resolve(__dirname, './fixtures/locales/shared/en/buttons.json');
+      var jsonB = path.resolve(__dirname, './fixtures/locales/particular/en/buttons.json');
+
+      var jsonResult = require(path.resolve(__dirname, './fixtures/locales/noNamespaceJsonResult.json'));
+
+      jasonBaker([jsonA, jsonB], {}, function(err, res){
         res.should.deep.equal(jsonResult);
         done();
       });
@@ -139,19 +188,26 @@ describe('jason-baker', function(){
 
   describe('JSON baking with glob options', function(){
 
-    it('should use globbed dir/filenames to namespace JSON data @json-file @glob @namespace', function(done){
+    var jsonGLOB = [
+      path.resolve(__dirname, './fixtures/locales/shared/?(en|fr)/*.json'),
+      path.resolve(__dirname, './fixtures/locales/particular/?(en|fr)/*.json')
+    ];
 
-      var jsonGLOB = [
-        path.resolve(__dirname, './fixtures/a/**/*.json'),
-        path.resolve(__dirname, './fixtures/b/**/*.json')
-      ];
-      var jsonResult = require('./fixtures/jsonResult.json');
+    var tieredJsonResult = require('./fixtures/locales/tieredNamespaceJsonResult.json');
+    var noTieredJsonResult = require('./fixtures/locales/noTieredNamespaceJsonResult.json');
+
+    it('should not tier globbed JSON data when not enabled @json-file @glob @no-tier @locale-demo', function(done){
+
+      jasonBaker(jsonGLOB, {}, function(err, res){
+        res.should.deep.equal(noTieredJsonResult);
+        done();
+      });
+
+    });
+
+    it('should tier globbed JSON data when enabled @json-file @glob @tier @locale-demo', function(done){
 
       jasonBaker(jsonGLOB, {starsToTiers:true}, function(err, res){
-        var keys = Object.keys(res);
-        keys.forEach(function(k){
-          expect(res[k]).to.equal(null)
-        });
         done();
       });
 
