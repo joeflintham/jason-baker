@@ -137,5 +137,26 @@ describe('jason-baker', function(){
 
   });
 
+  describe('JSON baking with glob options', function(){
+
+    it('should use globbed dir/filenames to namespace JSON data @json-file @glob @namespace', function(done){
+
+      var jsonGLOB = [
+        path.resolve(__dirname, './fixtures/a/**/*.json'),
+        path.resolve(__dirname, './fixtures/b/**/*.json')
+      ];
+      var jsonResult = require('./fixtures/jsonResult.json');
+
+      jasonBaker(jsonGLOB, {starsToTiers:true}, function(err, res){
+        var keys = Object.keys(res);
+        keys.forEach(function(k){
+          expect(res[k]).to.equal(null)
+        });
+        done();
+      });
+
+    });
+
+  });
 
 });
