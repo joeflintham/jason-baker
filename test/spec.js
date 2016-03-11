@@ -137,8 +137,8 @@ describe('jason-baker', function(){
 
     it('JSON baking handles a locale test case correctly @json-file @locale-demo', function(done){
 
-      var jsonA = path.resolve(__dirname, './fixtures/locales/shared/en/buttons.json');
-      var jsonB = path.resolve(__dirname, './fixtures/locales/particular/en/buttons.json');
+      var jsonA = path.resolve(__dirname, './fixtures/locales/shared/en/default/buttons.json');
+      var jsonB = path.resolve(__dirname, './fixtures/locales/private/en/default/buttons.json');
 
       var jsonResult = require(path.resolve(__dirname, './fixtures/locales/noNamespaceJsonResult.json'));
 
@@ -189,8 +189,8 @@ describe('jason-baker', function(){
   describe('JSON baking with glob options', function(){
 
     var jsonGLOB = [
-      path.resolve(__dirname, './fixtures/locales/shared/?(en|fr)/*.json'),
-      path.resolve(__dirname, './fixtures/locales/particular/?(en|fr)/*.json')
+      path.resolve(__dirname, './fixtures/locales/shared/?(en|fr)/**/*.json'),
+      path.resolve(__dirname, './fixtures/locales/private/?(en|fr)/**/*.json')
     ];
 
     var tieredJsonResult = require('./fixtures/locales/tieredNamespaceJsonResult.json');
@@ -207,7 +207,10 @@ describe('jason-baker', function(){
 
     it('should tier globbed JSON data when enabled @json-file @glob @tier @locale-demo', function(done){
 
-      jasonBaker(jsonGLOB, {starsToTiers:true}, function(err, res){
+      jasonBaker(jsonGLOB, {saltStars:true}, function(err, res){
+        (typeof res.en).should.equal("object");
+        expect(res).to.have.deep.property('en.default.common.purpose', 'JSON Cake');
+        expect(res).to.have.deep.property('en.default.particular.purpose', 'Save the world');
         done();
       });
 
