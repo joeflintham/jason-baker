@@ -1,0 +1,17 @@
+{
+  "en": {
+    "common": {
+      "project": "Jason Baker",
+      "purpose": "JSON Cake"
+    },
+    "buttons": {
+      "start": "Start",
+      "continue": "Go on",
+      "next": "Next"
+    },
+    "particular": {
+      "project": "Jason Bourne",
+      "purpose": "Save the world"
+    }
+  }
+}
