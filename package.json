@@ -4,7 +4,8 @@
   "description": "A tool for merging json files",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",
@@ -18,10 +19,17 @@
   "homepage": "https://github.com/joeflintham/jason-baker#readme",
   "devDependencies": {
     "chai": "^3.5.0",
-    "mocha": "^2.4.5"
+    "eslint": "^2.3.0",
+    "eslint-config-airbnb": "^6.1.0",
+    "mocha": "^2.4.5",
+    "pre-commit": "^1.1.2"
   },
   "dependencies": {
     "glob-promise": "^1.0.6",
     "q": "^1.4.1"
-  }
+  },
+  "pre-commit": [
+    "lint",
+    "test"
+  ]
 }
