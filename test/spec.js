@@ -184,4 +184,24 @@ describe('jason-baker', function () {
       });
     });
   });
+
+  describe('JSON baking as a promise', function () {
+    var jsonGLOB = [
+      path.resolve(__dirname, './fixtures/locales/shared/?(en|fr)/**/*.json'),
+      path.resolve(__dirname, './fixtures/locales/private/?(en|fr)/**/*.json')
+    ];
+
+    it('should tier globbed JSON data and return a promise instead of accepting a callback @json-file @glob @namespace @locale-demo @promise', function (done) {
+      jasonBaker.promise(jsonGLOB, { saltStars: true })
+        .then(function resolvePromise(res) {
+          (typeof res.en).should.equal('object');
+          expect(res).to.have.deep.property('en.default.common.purpose', 'JSON Cake');
+          expect(res).to.have.deep.property('en.default.particular.purpose', 'Save the world');
+          done();
+        })
+        .catch(function rejectPromise(err) {
+          throw err;
+        });
+    });
+  });
 });
