@@ -176,7 +176,7 @@ describe('jason-baker', function () {
     });
 
     it('should tier globbed JSON data when enabled @json-file @glob @namespace @locale-demo', function (done) {
-      jasonBaker(jsonGLOB, { saltStars: true }, function (err, res) {
+      jasonBaker(jsonGLOB, { fsToNs: true }, function (err, res) {
         (typeof res.en).should.equal('object');
         expect(res).to.have.deep.property('en.default.common.purpose', 'JSON Cake');
         expect(res).to.have.deep.property('en.default.particular.purpose', 'Save the world');
@@ -192,7 +192,7 @@ describe('jason-baker', function () {
     ];
 
     it('should tier globbed JSON data and return a promise instead of accepting a callback @json-file @glob @namespace @locale-demo @promise', function (done) {
-      jasonBaker.promise(jsonGLOB, { saltStars: true })
+      jasonBaker.promise(jsonGLOB, { fsToNs: true })
         .then(function resolvePromise(res) {
           (typeof res.en).should.equal('object');
           expect(res).to.have.deep.property('en.default.common.purpose', 'JSON Cake');
