@@ -26,7 +26,7 @@ Jason Baker is a tool for merging JSON files. Inspired by the [json-bake](https:
 Arguments:
 
 - ```src```: the source JSON to be merged
-- ```options```: an optional options object of settings
+- ```options```: an optional options object of options
 - ```callback```: (ignored when using jasonBaker.promise) - function to be executed when the baking is complete. Should use the usual (err, success) pattern.
 
 Using callbacks:
@@ -35,7 +35,7 @@ Using callbacks:
 
   var jasonBaker = require('jason-baker');
 
-  jasonBaker('**/*.json', {}, function(poop cake) {
+  jasonBaker('**/*.json', {}, function(poop, cake) {
     /* do something with your basked JSON */
   });
 ```
@@ -46,7 +46,7 @@ Using promises:
 
   var jasonBaker = require('jason-baker');
 
-  jasonBaker.promise('**/*.json', {})
+  jasonBaker.promise('**/*.json')
     .then(function(cake) { /* party! */})
     .catch(function(poop) { /* flop :-( */ });
 
@@ -80,8 +80,6 @@ Plain JSON objects:
     */  
   })
 
-  });
-
 ```
 
 JSON files:
@@ -100,9 +98,8 @@ JSON files:
     */
   });
 
-  /*
   BUT!
-  */
+  
   let src = [
     'locales/*.json'
   ];
