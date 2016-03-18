@@ -61,7 +61,7 @@ The options object currently understands the following settings:
 
 ## Examples
 
-See the test suite for a number of examples, but generally the following scenarios are supported.
+See the [test suite](./blob/master/test/spec.js) for a number of examples, but generally the following scenarios are supported.
 
 Plain JSON objects:
 
