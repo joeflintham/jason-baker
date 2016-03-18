@@ -104,7 +104,7 @@ JSON files:
     'locales/*.json'
   ];
 
-  jasonBaker(src, {}, function(err, cake) {
+  jasonBaker(src, {fsToNs:true}, function(err, cake) {
     /*
     {
       en: {
