@@ -7,7 +7,7 @@ Jason Baker is a tool for merging JSON files. Inspired by the [json-bake](https:
 - Handle the asynchronous process of merging JSON files, either using callbacks or using promises  
 - Specify source JSON as an array of JSON objects, an array of files, a glob string, or an array of globs  
 - Use the directory / filename structure of your JSON files to generate namesapces in your final JSON output
-- Internal source code written entirely in baking puns
+- Internal source code written entirely in [baking puns](./lib/jason-baker.js)
 
 ## Installation
 
@@ -61,7 +61,7 @@ The options object currently understands the following settings:
 
 ## Examples
 
-See the [test suite](./blob/master/test/spec.js) for a number of examples, but generally the following scenarios are supported.
+See the [test suite](./test/spec.js) for a number of examples, but generally the following scenarios are supported.
 
 Plain JSON objects:
 
